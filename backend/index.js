@@ -24,20 +24,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Routes
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    env: process.env.NODE_ENV || 'development'
-  });
-});
-
-app.use('/api/auth', authRoutes);
-app.use('/api/courses', courseRoutes);
-app.use('/api/registrations', registrationRoutes);
-app.use('/api/admin', seedRoutes);
-
 // Database connection
 let isConnected = false;
 
@@ -58,15 +44,6 @@ const connectToDatabase = async () => {
   }
 };
 
-// For local development
-if (process.env.NODE_ENV !== 'production') {
-  connectToDatabase().then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  });
-}
-
 // Middleware to ensure database connection for each request
 app.use(async (req, res, next) => {
   try {
@@ -76,5 +53,28 @@ app.use(async (req, res, next) => {
     res.status(500).json({ message: 'Database connection failed' });
   }
 });
+
+// Routes
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV || 'development'
+  });
+});
+
+app.use('/api/auth', authRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/registrations', registrationRoutes);
+app.use('/api/admin', seedRoutes);
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  connectToDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  });
+}
 
 export default app;
