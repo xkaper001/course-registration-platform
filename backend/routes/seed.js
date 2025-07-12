@@ -14,91 +14,147 @@ router.post('/seed-courses', async (req, res) => {
 
     const courses = [
       {
-        courseCode: 'CS101',
-        title: 'Introduction to Computer Science',
+        courseId: 'CS101',
+        name: 'Introduction to Computer Science',
         description: 'Basic concepts of programming and computer science fundamentals.',
         credits: 3,
         department: 'Computer Science',
         instructor: 'Dr. Smith',
-        schedule: 'Mon, Wed, Fri 9:00-10:00 AM',
-        maxStudents: 30,
+        schedule: {
+          days: ['Monday', 'Wednesday', 'Friday'],
+          startTime: '09:00',
+          endTime: '10:00'
+        },
+        location: 'Room 101, Engineering Building',
+        capacity: 30,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: []
       },
       {
-        courseCode: 'CS201',
-        title: 'Data Structures and Algorithms',
+        courseId: 'CS201',
+        name: 'Data Structures and Algorithms',
         description: 'Study of fundamental data structures and algorithms.',
         credits: 4,
         department: 'Computer Science',
         instructor: 'Dr. Johnson',
-        schedule: 'Tue, Thu 11:00 AM-12:30 PM',
-        maxStudents: 25,
+        schedule: {
+          days: ['Tuesday', 'Thursday'],
+          startTime: '11:00',
+          endTime: '12:30'
+        },
+        location: 'Room 205, Engineering Building',
+        capacity: 25,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: ['CS101']
       },
       {
-        courseCode: 'MATH101',
-        title: 'Calculus I',
+        courseId: 'MATH101',
+        name: 'Calculus I',
         description: 'Differential and integral calculus of functions of one variable.',
         credits: 4,
         department: 'Mathematics',
         instructor: 'Prof. Williams',
-        schedule: 'Mon, Wed, Fri 10:00-11:00 AM',
-        maxStudents: 40,
+        schedule: {
+          days: ['Monday', 'Wednesday', 'Friday'],
+          startTime: '10:00',
+          endTime: '11:00'
+        },
+        location: 'Room 301, Mathematics Building',
+        capacity: 40,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: []
       },
       {
-        courseCode: 'PHYS101',
-        title: 'General Physics I',
+        courseId: 'PHYS101',
+        name: 'General Physics I',
         description: 'Mechanics, heat, and sound.',
         credits: 4,
         department: 'Physics',
         instructor: 'Dr. Brown',
-        schedule: 'Tue, Thu 2:00-3:30 PM',
-        maxStudents: 35,
+        schedule: {
+          days: ['Tuesday', 'Thursday'],
+          startTime: '14:00',
+          endTime: '15:30'
+        },
+        location: 'Room 101, Physics Building',
+        capacity: 35,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: ['MATH101']
       },
       {
-        courseCode: 'ENG101',
-        title: 'English Composition',
+        courseId: 'ENG101',
+        name: 'English Composition',
         description: 'Writing and composition skills development.',
         credits: 3,
         department: 'English',
         instructor: 'Prof. Davis',
-        schedule: 'Mon, Wed 1:00-2:30 PM',
-        maxStudents: 20,
+        schedule: {
+          days: ['Monday', 'Wednesday'],
+          startTime: '13:00',
+          endTime: '14:30'
+        },
+        location: 'Room 201, Liberal Arts Building',
+        capacity: 20,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: []
       },
       {
-        courseCode: 'CS301',
-        title: 'Database Systems',
+        courseId: 'CS301',
+        name: 'Database Systems',
         description: 'Design and implementation of database systems.',
         credits: 3,
         department: 'Computer Science',
         instructor: 'Dr. Wilson',
-        schedule: 'Tue, Thu 9:30-11:00 AM',
-        maxStudents: 30,
+        schedule: {
+          days: ['Tuesday', 'Thursday'],
+          startTime: '09:30',
+          endTime: '11:00'
+        },
+        location: 'Room 210, Engineering Building',
+        capacity: 30,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: ['CS201']
       },
       {
-        courseCode: 'MATH201',
-        title: 'Linear Algebra',
+        courseId: 'MATH201',
+        name: 'Linear Algebra',
         description: 'Vector spaces, matrices, and linear transformations.',
         credits: 3,
         department: 'Mathematics',
         instructor: 'Prof. Taylor',
-        schedule: 'Mon, Wed, Fri 2:00-3:00 PM',
-        maxStudents: 30,
+        schedule: {
+          days: ['Monday', 'Wednesday', 'Friday'],
+          startTime: '14:00',
+          endTime: '15:00'
+        },
+        location: 'Room 305, Mathematics Building',
+        capacity: 30,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: ['MATH101']
       },
       {
-        courseCode: 'CS401',
-        title: 'Software Engineering',
+        courseId: 'CS401',
+        name: 'Software Engineering',
         description: 'Principles and practices of software development.',
         credits: 4,
         department: 'Computer Science',
         instructor: 'Dr. Anderson',
-        schedule: 'Tue, Thu 3:30-5:00 PM',
-        maxStudents: 25,
+        schedule: {
+          days: ['Tuesday', 'Thursday'],
+          startTime: '15:30',
+          endTime: '17:00'
+        },
+        location: 'Room 215, Engineering Building',
+        capacity: 25,
+        semester: 'Fall',
+        year: 2025,
         prerequisites: ['CS301']
       }
     ];
@@ -107,7 +163,7 @@ router.post('/seed-courses', async (req, res) => {
     res.json({ 
       message: 'Courses seeded successfully', 
       count: createdCourses.length,
-      courses: createdCourses.map(c => ({ courseCode: c.courseCode, title: c.title }))
+      courses: createdCourses.map(c => ({ courseId: c.courseId, name: c.name }))
     });
   } catch (error) {
     console.error('Seed error:', error);
